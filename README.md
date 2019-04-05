@@ -1,8 +1,8 @@
 ### Get minio client for darwin and linux
 ```
-wget -O app/mc.darwin https://dl.minio.io/client/mc/release/darwin-amd64/mc
+curl -o app/mc.darwin https://dl.minio.io/client/mc/release/darwin-amd64/mc
 chmod +x app/mc.darwin
-wget -O app/mc.linux-amd64 https://dl.minio.io/server/minio/release/linux-amd64/minio
+curl -o app/mc.linux-amd64 https://dl.minio.io/server/minio/release/linux-amd64/minio
 chmod +x app/mc.linux-amd64
 ```
 
