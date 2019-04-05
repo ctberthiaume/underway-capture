@@ -1,12 +1,19 @@
 #!/bin/bash -e
+# Should be run from this working directory
 
-echo "Starting UDP capture in /mnt/underway" >&2
+port=${1:-1234}
+outdir=${2:-.}
 
-# Listen on container local port 1234, which is host
-# port defined in docker-compose.yml. Store entire
-# stream in KM_feed.txt.
-#
+if [ ! -d "$outdir" ]
+then
+    mkdir "$outdir"
+fi
+
+echo "Starting UDP capture on port $port appending to directory $outdir" >&2
+
 # All writes are appends, so restarting this script
 # or container will not erase existing data.
-#/app/udplisten.py | tee -a KM_feed.txt | /app/kmfeedsplit
-/app/udplisten-f04c050 -p 1234 -f /mnt/underway/KM_feed.txt -b 2048
+# Switch to ./udplisten.linux-amd64.f04c050 for linux
+./udplisten.darwin.f04c050 -p "$port" -b 2048 | \
+    tee -a "$outdir"/KM_feed.txt | \
+    ./kmfeedsplit "$outdir"

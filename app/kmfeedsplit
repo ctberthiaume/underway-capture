@@ -1,11 +1,14 @@
 #!/bin/bash
 # Capture and split KiloMoana underway feed on stdin
 
-GPGGAFILE=${GPGGAFILE:-KM_GPGGA_feed.txt}
-GPVTGFILE=${GPVTGFILE:-KM_GPVTG_feed.txt}
-FLORFILE=${FLORFILE:-KM_flor_feed.txt}
-METFILE=${METFILE:-KM_met_feed.txt}
-UTHSLFILE=${UTHSLFILE:-KM_uthsl_feed.txt}
+outdir=${1:-.}
+[ ! -d "$outdir" ] && mkdir "$outdir"
+
+GPGGAFILE="$outdir/KM_GPGGA_feed.txt"
+GPVTGFILE="$outdir/KM_GPVTG_feed.txt"
+FLORFILE="$outdir/KM_flor_feed.txt"
+METFILE="$outdir/KM_met_feed.txt"
+UTHSLFILE="$outdir/KM_uthsl_feed.txt"
 
 awk \
     -v gpgga=$GPGGAFILE \

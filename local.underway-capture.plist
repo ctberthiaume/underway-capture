@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>local.underway-capture</string>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Users/chrisbee/git/underway-capture/app/run.sh</string>
+            <string>5555</string>
+            <string>/Users/chrisbee/Desktop/KM_underway</string>
+        </array>
+        <key>KeepAlive</key>
+        <true/>
+        <key>ThrottleInterval</key>
+        <integer>30</integer>
+        <key>UserName</key>
+        <string>chrisbee</string>
+        <key>GroupName</key>
+        <string>staff</string>
+        <key>StandardOutPath</key>
+        <string>/Users/chrisbee/log/underway-capture.stdout</string>
+        <key>StandardErrorPath</key>
+        <string>/Users/chrisbee/log/underway-capture.stderr</string>
+        <key>WorkingDirectory</key>
+        <string>/Users/chrisbee/git/underway-capture/app/</string>
+    </dict>
+</plist>
