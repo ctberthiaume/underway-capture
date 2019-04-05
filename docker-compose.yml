@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  underway:
+    image: ubuntu:18.04
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        window: 60s
+    ports:
+      - "5555:1234/udp"
+    volumes:
+      - underway-storage:/mnt/underway
+      - ./app/:/app
+    command: /app/run.sh
+  
+volumes:
+  underway-storage:
+    external: true
