@@ -18,9 +18,9 @@ awk \
     -v uthsl=$UTHSLFILE \
     '
     /^[^$]/ {date=$1 " " $2 " " $3 " " $4 " " $5 " " $6};
-    $7 == "uthsl" {print $0 >> uthsl; next};
-    $7 == "flor" {print $0 >> flor; next};
-    $7 == "met" {print $0 >> met; next};
-    /^\$GPGGA/ {print date, $0 >> gpgga; next};
-    /^\$GPVTG/ {print date, $0 >>gpvtg; next};
+    $7 == "uthsl" {print $0 >> uthsl; fflush(uthsl); next};
+    $7 == "flor" {print $0 >> flor; fflush(flor); next};
+    $7 == "met" {print $0 >> met; fflush(met); next};
+    /^\$GPGGA/ {print date, $0 >> gpgga; fflush(gpgga); next};
+    /^\$GPVTG/ {print date, $0 >>gpvtg; fflush(gpvtg); next};
     '
