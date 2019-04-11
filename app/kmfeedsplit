@@ -18,9 +18,23 @@ awk \
     -v uthsl=$UTHSLFILE \
     '
     /^[^$]/ {date=$1 " " $2 " " $3 " " $4 " " $5 " " $6};
-    $7 == "uthsl" {print $0 >> uthsl; fflush(uthsl); next};
+    # Guarantee that uthsl gets printed only every second
+    $7 == "uthsl" {
+        # timestamp at second resolution
+        # This assumes input is chronologically ordered
+        uthsldate=$1 " " $2 " " $3 " " $4 " " $5;
+        if (uthsldate > prevuthsldate && length(prevuthslline) > 0) {
+            print prevuthslline >> uthsl;
+            fflush(uthsl);
+        }
+        prevuthslline = $0
+        prevuthsldate = uthsldate;
+        next;
+    };
     $7 == "flor" {print $0 >> flor; fflush(flor); next};
     $7 == "met" {print $0 >> met; fflush(met); next};
     /^\$GPGGA/ {print date, $0 >> gpgga; fflush(gpgga); next};
     /^\$GPVTG/ {print date, $0 >>gpvtg; fflush(gpvtg); next};
+
+    END {print prevuthslline >> uthsl}
     '
