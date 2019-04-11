@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+# Strip null bytes from stdin, write cleaned data to stdout
+import sys
+from functools import wraps
+from signal import getsignal, signal, SIGPIPE, SIG_DFL
+
+
+def suppress_sigpipe(f):
+    """Decorator to handle SIGPIPE cleanly.
+
+    Prevent Python from turning SIGPIPE into an exception and printing an
+    uncatchable error message. Note, if the wrapped function depends on the
+    default behavior of Python when handling SIGPIPE this decorator may have
+    unintended effects."""
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        orig_handler = getsignal(SIGPIPE)
+        signal(SIGPIPE, SIG_DFL)
+        try:
+            f(*args, **kwargs)
+        finally:
+            signal(SIGPIPE, orig_handler)  # restore original Python SIGPIPE handler
+    return wrapper
+
+
+@suppress_sigpipe
+def main():
+    BUFFSIZE = 2048
+    while True:
+        data = sys.stdin.buffer.read(BUFFSIZE)
+        if len(data) == 0:
+            break
+        sys.stdout.buffer.write(data.replace(b'\x00', b''))
+
+
+if __name__ == '__main__':
+    main()
