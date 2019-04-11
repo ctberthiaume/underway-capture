@@ -16,5 +16,5 @@ echo "Starting UDP capture on port $port appending to directory $outdir" >&2
 # Switch to ./udplisten.linux-amd64.f04c050 for linux
 ./udplisten.darwin.f04c050 -q -p "$port" -b 2048 | \
     tee -a "$outdir"/KM_feed.txt | \
-    ./nulleraser | \  # remove null bytes if present
+    ./nulleraser | \
     ./kmfeedsplit "$outdir"
