@@ -17,7 +17,11 @@ awk \
     -v met=$METFILE \
     -v uthsl=$UTHSLFILE \
     '
-    /^[^$]/ {date=$1 " " $2 " " $3 " " $4 " " $5 " " $6};
+    # These tflor and uthsl sections are to mitigate the 1kHz rate
+    # problem where tflor and uthsl were repeated 1/ms, and we want
+    # to skip all tflor lines and only keep one uthsl entry per s.
+    $7 == "tflor" { next; }
+    /^[^$]/ && $7 != uthsl {date=$1 " " $2 " " $3 " " $4 " " $5 " " $6};
     # Guarantee that uthsl gets printed only every second
     $7 == "uthsl" {
         # timestamp at second resolution
