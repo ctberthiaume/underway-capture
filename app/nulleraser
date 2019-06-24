@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/local/bin/python3
 # Strip null bytes from stdin, write cleaned data to stdout
 import sys
 from functools import wraps

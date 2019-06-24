@@ -4,18 +4,18 @@
 outdir=${1:-.}
 [ ! -d "$outdir" ] && mkdir "$outdir"
 
-GPGGAFILE="$outdir/KM_GPGGA_feed.txt"
-GPVTGFILE="$outdir/KM_GPVTG_feed.txt"
-FLORFILE="$outdir/KM_flor_feed.txt"
-METFILE="$outdir/KM_met_feed.txt"
-UTHSLFILE="$outdir/KM_uthsl_feed.txt"
+GPGGAFILE="$outdir/HOT_GPGGA_feed.txt"
+GPVTGFILE="$outdir/HOT_GPVTG_feed.txt"
+FLORFILE="$outdir/HOT_flor_feed.txt"
+METFILE="$outdir/HOT_met_feed.txt"
+UTHSLFILE="$outdir/HOT_uthsl_feed.txt"
 
 awk \
-    -v gpgga=$GPGGAFILE \
-    -v gpvtg=$GPVTGFILE \
-    -v flor=$FLORFILE \
-    -v met=$METFILE \
-    -v uthsl=$UTHSLFILE \
+    -v gpgga="$GPGGAFILE" \
+    -v gpvtg="$GPVTGFILE" \
+    -v flor="$FLORFILE" \
+    -v met="$METFILE" \
+    -v uthsl="$UTHSLFILE" \
     '
     # These tflor and uthsl sections are to mitigate the 1kHz rate
     # problem where tflor and uthsl were repeated 1/ms, and we want

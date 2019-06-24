@@ -4,5 +4,5 @@
 # minio, copy underway data hardcoded to ~/Desktop/KM_underway.
 date
 ./mc.darwin cp -q \
-    ~/Desktop/KM_underway/KM_{GPGGA,GPVTG,flor,met,uthsl}_feed.txt \
-    minio/input-data/gradients3/
+    ~/Desktop/KM_underway/HOT_{GPGGA,GPVTG,flor,met,uthsl}_feed.txt \
+    minio/input-data/hot_2019_06_30
